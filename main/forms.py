@@ -1,5 +1,6 @@
+from email import contentmanager
 from flask_wtf import FlaskForm 
-from wtforms import StringField,PasswordField,SubmitField
+from wtforms import StringField,PasswordField,SubmitField,TextAreaField
 from wtforms.validators import DataRequired,Length,Email,EqualTo
 
 
@@ -14,3 +15,9 @@ class LoginForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
     password = PasswordField('Password',validators=[DataRequired()])
     login= SubmitField('Login')
+
+
+class PitchForm(FlaskForm):
+    title = StringField('title',validators=[DataRequired()])
+    content = TextAreaField('content',validators=[DataRequired()])
+    submit = SubmitField('pitch')
