@@ -1,13 +1,28 @@
 {% extends 'base.html'%} {% block content%}
-{% for pitch in pitches %}
-<div class="card text-white bg-success mb-3" style="max-width: 18rem">
-  <div class="card-header">{{pitch.title}}</div>
-  <div class="card-body">
-    <h5 class="card-title">{{pitch.category}}</h5>
-    <p class="card-text">
-      {{pitch.content}}
-    </p>
-  </div>
+
+<div class="container">
+<div class="col-lg-9 " style="color:#000">
+      <h2 class="text-center" style="color:white"> ALL PITCHES </h2>
+      <div class="row" >
+       {% for pitch in pitches %}
+        <div class="col-sm-6 mx-4 mb-5">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Title:{{pitch.title}}</h5>
+              <p class="card-header">Category :{{pitch.category}}</p>
+              <p class="card-text row-10">{{pitch.content }}</p>
+              
+            </div>
+          </div>
+        </div>
+       {% endfor %} 
+      </div>
+    </div>
+
 </div>
-{% endfor%}
+
+     
 {% endblock%}
+
+
+

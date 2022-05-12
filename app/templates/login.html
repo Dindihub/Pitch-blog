@@ -2,6 +2,12 @@
 
 {% block content%}
 
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{message}}
+{% endfor %}
+
+
 <div class="login-form">
 <form method="POST"action="" class="mx-4 mt-4 ">
     {{ form.hidden_tag()}}

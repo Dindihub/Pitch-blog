@@ -67,4 +67,4 @@ As a user I would like to:
 No known bugs
 
 ### License
-MIT (c) 2022 **[Sandra Dindi](git@github.com:Dindihub/Pitch-blog.git)**
+MIT (c) 2022 **[Sandra Dindi](https://github.com/Dindihub/Pitch-blog.git)**

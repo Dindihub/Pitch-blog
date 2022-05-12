@@ -8,8 +8,6 @@ from app import db
 from flask_login import login_user,current_user
 
 
-
-
 @main.route('/')
 def home():
     get_pitches=Pitch.query.all()
