@@ -15,8 +15,12 @@
 
              <form action="/comment/{{current_user.id}}/{{pitch.id}}" method="POST">
                {{comment_form.csrf_token}}
-              {{comment_form.content()}}
+               <div class="form-outline">
+              {{comment_form.content(class="form-control")}}
               {{comment_form.submit(class="btn btn-secondary")}}
+              
+              </div>
+              
              </form>
             {% for comment in pitch.comments%}
               <p class="card-text row-10">{{comment.content}}</p>
