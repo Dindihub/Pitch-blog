@@ -22,3 +22,7 @@ class PitchForm(FlaskForm):
     category = StringField('category',validators=[DataRequired()])
     content = TextAreaField('content',validators=[DataRequired()])
     submit = SubmitField('pitch')
+
+class CommentForm(FlaskForm):
+    content = TextAreaField('comment',validators=[DataRequired()])
+    submit = SubmitField('comment')

@@ -2,20 +2,26 @@
 from unicodedata import category
 from flask import render_template,url_for,redirect,flash
 from . import main
-from .forms import RegistrationForm,LoginForm,PitchForm
-from .models import Pitch, User,Category
+from .forms import RegistrationForm,LoginForm,PitchForm,CommentForm
+from .models import Pitch, User,Category,Comments
 from app import db
-from flask_login import login_user,current_user
+from flask_login import login_required, login_user,current_user
 
 
 @main.route('/')
 def home():
+    comment_form=CommentForm()
     get_pitches=Pitch.query.all()
-    return render_template('home.html',title='home',pitches=get_pitches)
+    for pitch in get_pitches:
+        pitch.user=User.query.filter_by(id=pitch.author).first()
+    return render_template('home.html',title='home',pitches=get_pitches, comment_form=comment_form)
+
 
 @main.route('/about')
 def about():
     return render_template('about.html',title='about')
+
+
 
 
 @main.route('/register',methods=['GET','POST'])
@@ -35,7 +41,7 @@ def register():
 
         return redirect(url_for('main.login'))
     flash('Username is taken')
-    print('form invalid')
+    
     print(form.username.data,form.email.data,form.password.data,form.confirm_password.data)
     return render_template('register.html',title='register',form=form)
 
@@ -53,6 +59,7 @@ def login():
 
 
 @main.route('/pitch',methods=['GET','POST'])
+@login_required
 def pitch():
     form = PitchForm()
     if form.validate_on_submit():
@@ -66,6 +73,22 @@ def pitch():
         return redirect(url_for('main.home'))
     return render_template('pitch.html',title = 'pitch',form = form)
     
+
+@main.route('/comment/<int:user_id>/<int:pitch_id>',methods=['POST'])
+@login_required
+def comment(user_id,pitch_id):
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comments(content=form.content.data,user_id=user_id,pitch_id=pitch_id)
+
+        db.session.add(comment)
+        db.session.commit()
+    return redirect(url_for('main.home'))
+
+
+        
+    
+
 
 
 

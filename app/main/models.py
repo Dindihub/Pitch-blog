@@ -31,7 +31,7 @@ class User(UserMixin,db.Model):
 
 
     def __repr__(self):
-        return f"User('{self.username}','{self.email}')"
+        return f"{self.username}"
 
 class Category(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -47,15 +47,12 @@ class Pitch(db.Model):
     date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
     content =db.Column(db.Text,nullable=False)
     author = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-    user = db.relationship(User,backref=db.backref('pitches.id'))
+    # user = db.relationship(User,backref=db.backref('pitch.id'))
     category = db.Column(db.String,default='general')
     # votes_id = db.Column(db.Integer,db.ForeignKey('votes.id'),nullable=False)
     # votes = db.relationship('Votes',backref='votes')
     # comments_id = db.Column(db.Integer,db.ForeignKey('comments.id'),nullable=False)
-    # comments = db.relationship('Comments',backref='comments')
-    
-
-
+    comments = db.relationship('Comments',backref='comments')
     
 
 
@@ -67,4 +64,6 @@ class Votes(db.Model):
 class Comments(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     content =db.Column(db.Text,nullable=False)
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitch.id'),nullable=False)
 
